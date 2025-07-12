@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, 
+              opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Apple-style button hover effects */
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid #007AFF;
+  outline-offset: 2px;
+}
+
+/* Typography refinements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+p {
+  color: #666;
+}
+
+/* Apple-style backdrop blur */
+.backdrop-blur-apple {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Apple-style grid layouts */
+.apple-grid {
+  display: grid;
+  gap: 0;
+}
+
+.apple-grid-2x2 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .apple-grid-2x2 {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .responsive-title {
+    font-size: 2rem !important;
+  }
+  
+  .responsive-subtitle {
+    font-size: 1.125rem !important;
+  }
+}
+
+/* Apple-style shadows */
+.apple-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.apple-shadow-lg {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+}
