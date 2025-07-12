@@ -1,80 +1,60 @@
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Toaster } from '@/components/ui/toaster'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import WeatherHome from '@/components/WeatherHome'
+import SocialFeed from '@/components/SocialFeed'
+import Settings from '@/components/Settings'
+import Navigation from '@/components/Navigation'
+import SubscriptionModal from '@/components/SubscriptionModal'
 import './App.css'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import ProductSection from './components/ProductSection'
-import AppleTVSection from './components/AppleTVSection'
-import Footer from './components/Footer'
 
 function App() {
+  const [showSubscription, setShowSubscription] = useState(false)
+  const [isRestarting, setIsRestarting] = useState(false)
+
+  const handleRestart = () => {
+    setIsRestarting(true)
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000)
+  }
+
   return (
-    <div className="App">
-      <Header />
-      <main>
-        <Hero />
-        <ProductSection 
-          title="iPhone 16"
-          subtitle="Meet the iPhone 16 family."
-          description="Built for Apple Intelligence."
-          ctaMain="Learn more"
-          ctaSecondary="Shop iPhone"
-          background="bg-black text-white"
-          image="https://images.unsplash.com/photo-1601972599720-dd2d82fceb9e?w=800&h=600&fit=crop&crop=center"
-        />
-        <ProductSection 
-          title="iPad Pro"
-          subtitle="Unbelievably thin. Incredibly powerful."
-          description="Built for Apple Intelligence."
-          ctaMain="Learn more"
-          ctaSecondary="Buy"
-          background="bg-white text-black"
-          image="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800&h=600&fit=crop&crop=center"
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-          <ProductSection 
-            title="MacBook Air"
-            subtitle="Sky blue color. Sky high performance with M4."
-            description="Built for Apple Intelligence."
-            ctaMain="Learn more"
-            ctaSecondary="Buy"
-            background="bg-blue-50 text-black"
-            image="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=500&fit=crop&crop=center"
-            compact
-          />
-          <ProductSection 
-            title="iPad Air"
-            subtitle="Now supercharged by the M3 chip."
-            description="Built for Apple Intelligence."
-            ctaMain="Learn more"
-            ctaSecondary="Buy"
-            background="bg-gray-100 text-black"
-            image="https://images.unsplash.com/photo-1611532736969-78afee1cc7c4?w=600&h=500&fit=crop&crop=center"
-            compact
-          />
-          <ProductSection 
-            title="Apple Watch Series 10"
-            subtitle="Thinstant classic."
-            description=""
-            ctaMain="Learn more"
-            ctaSecondary="Buy"
-            background="bg-gray-900 text-white"
-            image="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=600&h=500&fit=crop&crop=center"
-            compact
-          />
-          <ProductSection 
-            title="AirPods Pro 2"
-            subtitle="Now with a Hearing Aid feature."
-            description=""
-            ctaMain="Learn more"
-            ctaSecondary="Buy"
-            background="bg-white text-black"
-            image="https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=600&h=500&fit=crop&crop=center"
-            compact
-          />
+    <ThemeProvider defaultTheme="light" storageKey="weathersatelite-theme">
+      <Router>
+        <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+          {isRestarting ? (
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="text-center text-white">
+                <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-xl font-medium">Restarting WeatherSatellite...</p>
+                <p className="text-sm opacity-80 mt-2">Installing updates...</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <Navigation onUpgrade={() => setShowSubscription(true)} />
+              
+              <main className="pb-20">
+                <Routes>
+                  <Route path="/" element={<WeatherHome />} />
+                  <Route path="/social" element={<SocialFeed />} />
+                  <Route path="/settings" element={<Settings onRestart={handleRestart} />} />
+                </Routes>
+              </main>
+
+              <SubscriptionModal 
+                isOpen={showSubscription}
+                onClose={() => setShowSubscription(false)}
+              />
+            </>
+          )}
+          
+          <Toaster />
         </div>
-        <AppleTVSection />
-      </main>
-      <Footer />
-    </div>
+      </Router>
+    </ThemeProvider>
   )
 }
 
